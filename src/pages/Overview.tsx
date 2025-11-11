@@ -2,7 +2,9 @@ import { PrecipitationChart } from '@/components/charts/PrecipitationChart';
 import { TemperatureChart } from '@/components/charts/TemperatureChart';
 import { WindSpeedChart } from '@/components/charts/WindSpeedChart';
 import { ErrorMessage } from '@/components/common/ErrorMessage';
-import { Loader } from '@/components/common/Loader';
+import { PrecipitationChartSkeleton } from '@/components/common/PrecipitationChartSkeleton';
+import { TemperatureChartSkeleton } from '@/components/common/TemperatureChartSkeleton';
+import { WindSpeedChartSkeleton } from '@/components/common/WindSpeedChartSkeleton';
 import { DateRangeFilter } from '@/components/filters/DateRangeFilter';
 import { LocationFilter } from '@/components/filters/LocationFilter';
 import { useDailyWeather } from '@/hooks/useWeatherData';
@@ -34,7 +36,13 @@ export const Overview = () => {
           <DateRangeFilter />
           <LocationFilter />
         </div>
-        <Loader />
+
+        {/* Responsive Grid with Skeleton Loaders */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <TemperatureChartSkeleton />
+          <PrecipitationChartSkeleton />
+          <WindSpeedChartSkeleton />
+        </div>
       </div>
     );
   }
@@ -66,8 +74,8 @@ export const Overview = () => {
         <LocationFilter />
       </div>
 
-      {/* Charts */}
-      <div className="grid gap-6">
+      {/* Responsive Charts Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <TemperatureChart
           data={data}
           onClick={() => handleChartClick('temperature')}

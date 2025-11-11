@@ -1,5 +1,6 @@
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { Header } from '@/components/layout/Header';
+import { Sidebar } from '@/components/layout/Sidebar';
 import { queryClient } from '@/config/queryClient.config';
 import { Details } from '@/pages/Details';
 import { Overview } from '@/pages/Overview';
@@ -14,10 +15,13 @@ function App() {
         <BrowserRouter>
           <div className="min-h-screen bg-gray-50">
             <Header />
-            <Routes>
-              <Route path="/" element={<Overview />} />
-              <Route path="/details" element={<Details />} />
-            </Routes>
+            <Sidebar />
+            <main className="ml-16">
+              <Routes>
+                <Route path="/" element={<Overview />} />
+                <Route path="/details" element={<Details />} />
+              </Routes>
+            </main>
           </div>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
