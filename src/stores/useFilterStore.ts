@@ -1,4 +1,4 @@
-import { DATE_CONFIG, LOCATIONS } from '@/config/constants';
+import { DATE_CONFIG } from '@/config/constants';
 import type { DateRange, Location } from '@/types/weather.types';
 import { format, subDays } from 'date-fns';
 import { create } from 'zustand';
@@ -7,12 +7,12 @@ import { devtools, persist } from 'zustand/middleware';
 interface FilterState {
   // State
   dateRange: DateRange;
-  selectedLocation: Location;
+  selectedLocation: Location | 'all';
   selectedParameters: string[];
 
   // Actions
   setDateRange: (range: DateRange) => void;
-  setSelectedLocation: (location: Location) => void;
+  setSelectedLocation: (location: Location | 'all') => void;
   setSelectedParameters: (params: string[]) => void;
   toggleParameter: (paramId: string) => void;
   resetFilters: () => void;
@@ -29,7 +29,7 @@ const getDefaultDateRange = (): DateRange => {
 
 const initialState = {
   dateRange: getDefaultDateRange(),
-  selectedLocation: LOCATIONS[0],
+  selectedLocation: 'all' as const,
   selectedParameters: ['temperature'],
 };
 

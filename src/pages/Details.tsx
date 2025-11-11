@@ -1,10 +1,10 @@
 import { MultiParameterChart } from '@/components/charts/MultiParameterChart';
-import { ChartSkeleton } from '@/components/common/ChartSkeleton';
 import { ErrorMessage } from '@/components/common/ErrorMessage';
-import { Loader } from '@/components/common/Loader';
+import { TemperatureChartSkeleton } from '@/components/common/TemperatureChartSkeleton';
 import { DateRangeFilter } from '@/components/filters/DateRangeFilter';
 import { LocationFilter } from '@/components/filters/LocationFilter';
 import { ParameterFilter } from '@/components/filters/ParameterFilter';
+import { LOCATIONS } from '@/config/constants';
 import { useHourlyWeather } from '@/hooks/useWeatherData';
 import { useFilterStore } from '@/stores/useFilterStore';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -13,10 +13,14 @@ import { Loader2 } from 'lucide-react';
 export const Details = () => {
   const { dateRange, selectedLocation, selectedParameters } = useFilterStore();
 
+  // Use first location when "All Cities" is selected
+  const activeLocation =
+    selectedLocation === 'all' ? LOCATIONS[0] : selectedLocation;
+
   const { data, isLoading, isError, error, refetch, isFetching } =
     useHourlyWeather({
-      lat: selectedLocation.lat,
-      lon: selectedLocation.lon,
+      lat: activeLocation.lat,
+      lon: activeLocation.lon,
       startDate: dateRange.start,
       endDate: dateRange.end,
       parameters: selectedParameters,
@@ -31,7 +35,7 @@ export const Details = () => {
           <LocationFilter />
           <ParameterFilter />
         </div>
-        <Loader />
+        <TemperatureChartSkeleton />
       </div>
     );
   }
@@ -93,7 +97,7 @@ export const Details = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ChartSkeleton />
+            <TemperatureChartSkeleton />
           </motion.div>
         ) : (
           <motion.div

@@ -41,3 +41,24 @@
     transform: translateX(100%);
   }
 }
+
+/* Minimal react-day-picker customization - just colors */
+.rdp {
+  --rdp-accent-color: hsl(var(--primary));
+  --rdp-background-color: hsl(var(--primary));
+  --rdp-accent-background-color: hsl(var(--accent));
+  margin: 0;
+}
+
+.rdp-day_selected {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.rdp-day_range_middle {
+  background-color: hsl(var(--accent));
+}
+
+.rdp-day_disabled {
+  opacity: 0.3;
+}
