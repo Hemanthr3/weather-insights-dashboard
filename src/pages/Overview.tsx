@@ -10,6 +10,8 @@ import { LocationFilter } from '@/components/filters/LocationFilter';
 import { LOCATIONS } from '@/config/constants';
 import { useDailyWeather } from '@/hooks/useWeatherData';
 import { useFilterStore } from '@/stores/useFilterStore';
+import { transformDailyData } from '@/utils/chartUtils';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Overview = () => {
@@ -27,6 +29,11 @@ export const Overview = () => {
     startDate: dateRange.start,
     endDate: dateRange.end,
   });
+
+  // Transform data ONCE for all charts (avoid redundant transformations)
+  const chartData = useMemo(() => {
+    return data ? transformDailyData(data) : null;
+  }, [data]);
 
   const handleChartClick = (parameter: string) => {
     setSelectedParameters([parameter]);
@@ -49,22 +56,22 @@ export const Overview = () => {
       return <ErrorMessage error={error as Error} retry={refetch} />;
     }
 
-    if (!data) {
+    if (!chartData) {
       return null;
     }
 
     return (
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <TemperatureChart
-          data={data}
+          data={chartData}
           onClick={() => handleChartClick('temperature')}
         />
         <PrecipitationChart
-          data={data}
+          data={chartData}
           onClick={() => handleChartClick('precipitation')}
         />
         <WindSpeedChart
-          data={data}
+          data={chartData}
           onClick={() => handleChartClick('windspeed')}
         />
       </div>
