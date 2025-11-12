@@ -14,20 +14,14 @@ export const weatherApiClient = axios.create({
   },
 });
 
-// Request interceptor for logging
+// Request interceptor
 weatherApiClient.interceptors.request.use(
-  (config) => {
-    console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`);
-    return config;
-  },
+  (config) => config,
   (error) => Promise.reject(error)
 );
 
 // Response interceptor for error handling
 weatherApiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
-    console.error('[API Error]', error.response?.data || error.message);
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
