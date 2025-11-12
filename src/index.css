@@ -10,13 +10,13 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 186 100% 38%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
+    --accent: 164 36% 94%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -43,22 +43,22 @@
 }
 
 /* Minimal react-day-picker customization - just colors */
-.rdp {
-  --rdp-accent-color: hsl(var(--primary));
-  --rdp-background-color: hsl(var(--primary));
-  --rdp-accent-background-color: hsl(var(--accent));
-  margin: 0;
+
+.rdp-root {
+  padding: 24px;
 }
 
-.rdp-day_selected {
-  background-color: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
+.rdp-range_start .rdp-day_button,
+.rdp-range_end .rdp-day_button {
+  background-color: hsl(var(--primary)) !important;
+  color: #ffffff !important;
+  border: none !important;
 }
 
-.rdp-day_range_middle {
-  background-color: hsl(var(--accent));
+.rdp-range_middle {
+  background-color: hsl(var(--accent)) !important;
 }
 
-.rdp-day_disabled {
-  opacity: 0.3;
+.rdp-chevron {
+  fill: hsl(var(--primary)) !important;
 }

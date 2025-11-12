@@ -97,7 +97,7 @@ export const DateRangeFilter = () => {
             numberOfMonths={2}
             disabled={(calendarDate) => {
               // Disable future dates
-              if (calendarDate > new Date()) return true;
+              // if (calendarDate > new Date()) return true;
 
               // If a start date is selected, disable dates > 90 days from it
               if (date?.from && !date?.to) {

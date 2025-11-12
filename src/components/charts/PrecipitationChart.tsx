@@ -68,6 +68,7 @@ export const PrecipitationChart = ({
               dataKey="precipitation"
               fill={CHART_CONFIG.COLORS.precipitation}
               animationDuration={CHART_CONFIG.ANIMATION_DURATION}
+              radius={[6,6,0,0]}
             />
           </BarChart>
         </ResponsiveContainer>

@@ -65,8 +65,8 @@ export const CHART_CONFIG = {
       max: '#EF4444', // Red
       min: '#3B82F6', // Blue
     },
-    precipitation: '#0891B2', // Teal
-    windspeed: '#6B7280', // Gray
+    precipitation: '#007C9E', // Teal
+    windspeed: '#8BADA9', // Gray
   },
   MARGINS: { top: 20, right: 30, left: 20, bottom: 20 },
   ANIMATION_DURATION: 300,

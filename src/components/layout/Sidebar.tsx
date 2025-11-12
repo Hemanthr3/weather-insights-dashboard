@@ -6,14 +6,14 @@ export const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-16 bg-gray-800 flex flex-col items-center py-4 gap-4 z-10">
+    <aside className=" w-[55px] bg-[#FFFFFF] border-r border-[#E9EFF5] px-2 py-4 h-full gap-4 flex flex-col items-center">
       <Link
         to="/"
         className={cn(
           'w-10 h-10 rounded-lg flex items-center justify-center transition-colors',
           location.pathname === '/'
-            ? 'bg-primary text-white'
-            : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+            ? 'bg-accent text-primary'
+            : 'text-gray-400 hover:bg-accent hover:text-primary'
         )}
         title="Overview"
       >
@@ -25,8 +25,8 @@ export const Sidebar = () => {
         className={cn(
           'w-10 h-10 rounded-lg flex items-center justify-center transition-colors',
           location.pathname === '/details'
-            ? 'bg-primary text-white'
-            : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+            ? 'bg-accent text-primary'
+            : 'text-gray-400 hover:bg-accent hover:text-primary'
         )}
         title="Details"
       >
