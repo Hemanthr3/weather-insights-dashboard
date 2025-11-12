@@ -67,10 +67,8 @@ export const useFilterStore = create<FilterState>()(
               if (current.length < 2) {
                 // Add it (space available)
                 return { selectedParameters: [...current, paramId] };
-              } else {
-                // Replace the first one (FIFO)
-                return { selectedParameters: [current[1], paramId] };
               }
+              return state;
             },
             false,
             'toggleParameter'
