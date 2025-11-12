@@ -5,9 +5,9 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { LOCATIONS } from '@/config/constants';
+import { cn } from '@/lib/utils';
 import { useFilterStore } from '@/stores/useFilterStore';
 import { ChevronDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 export const LocationFilter = () => {
   const { selectedLocation, setSelectedLocation } = useFilterStore();
@@ -27,12 +27,17 @@ export const LocationFilter = () => {
           <Button
             variant="outline"
             className="w-full md:w-[250px] justify-between"
+            aria-label={`Select location, currently ${selectedLocation.name}`}
+            aria-haspopup="listbox"
           >
             {selectedLocation.name}
-            <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+            <ChevronDown
+              className="ml-2 h-4 w-4 opacity-50 text-primary"
+              aria-hidden="true"
+            />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[250px] p-3" align="start">
+        <PopoverContent className="w-[250px] p-3" align="start" role="listbox">
           <div className="space-y-1">
             <div className="text-sm font-medium text-gray-500 mb-2">
               Select Location

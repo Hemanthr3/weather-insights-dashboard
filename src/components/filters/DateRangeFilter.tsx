@@ -83,8 +83,10 @@ export const DateRangeFilter = () => {
               'w-full md:w-[300px] justify-start text-left font-normal',
               !date && 'text-muted-foreground'
             )}
+            aria-label={`Select date range, currently ${formatDateDisplay()}`}
+            aria-haspopup="dialog"
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="mr-2 h-4 w-4" aria-hidden="true" />
             {formatDateDisplay()}
           </Button>
         </PopoverTrigger>

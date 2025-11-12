@@ -53,11 +53,18 @@ export const ParameterFilter = ({ disabled }: ParameterFilterProps) => {
           variant="outline"
           className="w-full md:w-[280px] justify-between shadow-[1.856px_1.856px_6.63px_0_rgba(0,0,0,0.20)] bg-white"
           disabled={disabled || isPending}
+          aria-label={`Select parameters, currently ${
+            getSelectedLabels() || 'none selected'
+          }`}
+          aria-haspopup="listbox"
         >
           <span className="truncate">
             {getSelectedLabels() || 'Select parameters'}
           </span>
-          <ChevronDown className="ml-2 h-4 w-4 opacity-50 flex-shrink-0" />
+          <ChevronDown
+            className="ml-2 h-4 w-4 opacity-50 flex-shrink-0"
+            aria-hidden="true"
+          />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[280px] p-0" align="start">

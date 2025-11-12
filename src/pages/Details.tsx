@@ -9,7 +9,7 @@ import { useFilterStore } from '@/stores/useFilterStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 
-export const Details = () => {
+const Details = () => {
   const { dateRange, selectedLocation, selectedParameters } = useFilterStore();
 
   const { data, isLoading, isError, error, refetch, isFetching } =
@@ -102,3 +102,5 @@ export const Details = () => {
     </div>
   );
 };
+
+export default Details;

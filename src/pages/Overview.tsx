@@ -13,7 +13,7 @@ import { transformDailyData } from '@/utils/chartUtils';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const Overview = () => {
+const Overview = () => {
   const navigate = useNavigate();
   const { dateRange, selectedLocation, setSelectedParameters } =
     useFilterStore();
@@ -91,3 +91,5 @@ export const Overview = () => {
     </div>
   );
 };
+
+export default Overview;
