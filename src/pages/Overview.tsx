@@ -7,7 +7,6 @@ import { TemperatureChartSkeleton } from '@/components/common/TemperatureChartSk
 import { WindSpeedChartSkeleton } from '@/components/common/WindSpeedChartSkeleton';
 import { DateRangeFilter } from '@/components/filters/DateRangeFilter';
 import { LocationFilter } from '@/components/filters/LocationFilter';
-import { LOCATIONS } from '@/config/constants';
 import { useDailyWeather } from '@/hooks/useWeatherData';
 import { useFilterStore } from '@/stores/useFilterStore';
 import { transformDailyData } from '@/utils/chartUtils';
@@ -19,13 +18,9 @@ export const Overview = () => {
   const { dateRange, selectedLocation, setSelectedParameters } =
     useFilterStore();
 
-  // Use first location when "All Cities" is selected
-  const activeLocation =
-    selectedLocation === 'all' ? LOCATIONS[0] : selectedLocation;
-
   const { data, isLoading, isError, error, refetch } = useDailyWeather({
-    lat: activeLocation.lat,
-    lon: activeLocation.lon,
+    lat: selectedLocation.lat,
+    lon: selectedLocation.lon,
     startDate: dateRange.start,
     endDate: dateRange.end,
   });
