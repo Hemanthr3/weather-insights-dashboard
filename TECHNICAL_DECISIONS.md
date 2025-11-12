@@ -357,4 +357,46 @@ Wrapper for all charts (eliminates duplication)
 
 ---
 
+## 🧪 Testing
+
+### Test Setup
+
+**Vitest** - Fast, Vite-native test runner  
+**@testing-library/react** - User-centric component testing  
+**@testing-library/jest-dom** - DOM matchers
+
+### Test Suites
+
+**1. Utility Tests** (`dateUtils.test.ts`) - 10 tests
+```tsx
+✅ formatChartDate - Date formatting
+✅ formatTooltipDate - DateTime with time
+✅ validateDateRange - Range validation (max days, invalid inputs)
+```
+
+**2. Component Tests** (`LocationFilter.test.tsx`) - 5 tests
+```tsx
+✅ Renders with default location
+✅ Shows all 6 locations
+✅ Updates Zustand store on selection
+✅ ARIA attributes for accessibility
+```
+
+### Why These Tests?
+
+1. **Utility tests** - Pure functions, easy to test, high value
+2. **Component tests** - Integration with Zustand, user interactions, accessibility
+
+### Run Tests
+
+```bash
+npm test               # Run all tests
+npm run test:ui        # Visual UI
+npm run test:coverage  # Coverage report
+```
+
+**Result:** 15 tests passing ✅
+
+---
+
 Built with React 18, TypeScript, Zustand, React Query, and Recharts 🚀

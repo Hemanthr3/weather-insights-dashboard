@@ -12,6 +12,9 @@ npm install
 npm run dev
 # Open http://localhost:5173
 
+# Run tests
+npm test
+
 # Build for production
 npm run build
 
