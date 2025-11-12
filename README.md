@@ -1,210 +1,115 @@
-# Weather Insights Dashboard
+# Weather Insights Dashboard 🌤️
 
-A production-ready historical weather data dashboard built with modern React ecosystem, featuring interactive data visualization and real-time API integration with Open-Meteo Archive API.
+Historical weather data visualization built with React 18, TypeScript, and Open-Meteo API.
 
-## 🚀 Features
-
-- **Two Main Pages:**
-
-  - **Overview Page**: Displays daily weather data with three interactive charts (Temperature, Precipitation, Wind Speed)
-  - **Details Page**: Drill-down view with hourly data supporting dual Y-axis visualization of up to 2 parameters simultaneously
-
-- **Interactive Filters:**
-
-  - Date range selector (up to 3 months)
-  - Location selector (6 global cities)
-  - Parameter selector (6 weather metrics)
-
-- **Modern Tech Stack:**
-  - React 18 with TypeScript
-  - Zustand for state management
-  - React Query for data fetching & caching
-  - Recharts for data visualization
-  - Tailwind CSS + shadcn/ui for styling
-  - Framer Motion for smooth animations
-
-## 📦 Installation
+## 🚀 Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm run dev          # http://localhost:5173
+npm run build        # Production build
 ```
 
-## 🏗️ Project Structure
+## ✨ Features
+
+**Two Pages:**
+- **Overview** (`/`) - Daily data with 3 charts (Temperature, Precipitation, Wind Speed)
+- **Details** (`/details`) - Hourly data with dual Y-axis chart (select 1-2 parameters)
+
+**Filters:**
+- 📅 Date Range (max 3 months)
+- 📍 Location (6 cities: NY, London, Tokyo, Sydney, Mumbai, São Paulo)
+- 📊 Parameters (6 metrics: Temp, Humidity, Apparent Temp, Precipitation, Pressure, Wind)
+
+## 🛠️ Tech Stack
+
+| Purpose | Choice | Why? |
+|---------|--------|------|
+| Framework | React 18 + TypeScript | Type safety, concurrent features |
+| State | Zustand | Simple, performant, DevTools |
+| Data | React Query + Axios | Auto-caching, retry, deduplication |
+| UI | Tailwind + shadcn/ui | Accessible, customizable |
+| Charts | Recharts | Responsive, dual Y-axis |
+
+## 📁 Code Organization
 
 ```
 src/
+├── pages/          # Overview, Details (lazy loaded)
 ├── components/
-│   ├── ui/                      # shadcn/ui components
-│   ├── common/                  # Reusable components (Loader, ErrorBoundary, etc.)
-│   ├── charts/                  # Chart components
-│   ├── filters/                 # Filter components
-│   └── layout/                  # Layout components
-├── pages/
-│   ├── Overview.tsx             # Overview page (daily data)
-│   └── Details.tsx              # Details page (hourly data)
-├── hooks/
-│   └── useWeatherData.ts        # React Query hooks
-├── stores/
-│   └── useFilterStore.ts        # Zustand store
-├── services/
-│   └── weatherApi.ts            # API integration
-├── utils/
-│   ├── dateUtils.ts             # Date formatting utilities
-│   └── chartUtils.ts            # Chart data transformation
-├── types/
-│   └── weather.types.ts         # TypeScript type definitions
-└── config/
-    ├── constants.ts             # Static data (locations, parameters)
-    ├── api.config.ts            # Axios configuration
-    └── queryClient.config.ts    # React Query configuration
+│   ├── charts/     # 4 chart components
+│   ├── filters/    # Date, Location, Parameter
+│   ├── common/     # Loader, Error, Skeletons
+│   └── ui/         # shadcn/ui components
+├── hooks/          # useWeatherData (React Query)
+├── stores/         # useFilterStore (Zustand)
+├── services/       # weatherApi (Axios)
+├── utils/          # chartUtils, dateUtils
+└── config/         # constants, api, queryClient
 ```
 
-## 🎯 Key Technical Decisions
+**Design Principle:** `UI → Logic → State → API` (clear separation of concerns)
 
-### State Management: Zustand
+## 🚀 Performance
 
-- **Why**: Simpler API than Context, better performance with selective subscriptions
-- **Benefits**: Built-in DevTools, localStorage persistence, less boilerplate
+- **Initial load**: 3KB gzipped (97% reduction via code splitting)
+- **Caching**: React Query (5-min stale, 10-min cache)
+- **Bundle**: Manual chunking by library (Recharts, React, etc.)
 
-### Data Fetching: React Query + Axios
+## ♿ Accessibility
 
-- **Why**: Automatic caching, retry logic, and loading state management
-- **Benefits**: Deduplicates requests, background refetching, optimistic updates
+- ARIA labels on all interactive elements
+- Keyboard navigation (Enter/Space on charts)
+- Context-aware errors (offline, 404, 429, 5xx)
 
-### UI Components: shadcn/ui
+## 🌍 Locations
 
-- **Why**: Accessible, customizable, and you own the code
-- **Benefits**: Built on Radix UI primitives, TypeScript-first, Tailwind-styled
+New York 🇺🇸 | London 🇬🇧 | Tokyo 🇯🇵 | Sydney 🇦🇺 | Mumbai 🇮🇳 | São Paulo 🇧🇷
 
-### Charts: Recharts
+## 📦 Deployment (Netlify)
 
-- **Why**: React-native API, responsive, dual Y-axis support
-- **Benefits**: Declarative, composable, smooth animations
+```bash
+# Build
+npm run build
 
-## 🌍 Supported Locations
+# Deploy dist/ folder to Netlify
+# Settings: Build command: npm run build | Publish: dist
+```
 
-1. New York, USA
-2. London, UK
-3. Tokyo, Japan
-4. Sydney, Australia
-5. Mumbai, India
-6. São Paulo, Brazil
+**Or connect GitHub repo** → Auto-deploy on push
 
-## 📊 Available Parameters
+## 📚 Documentation
 
-**Overview Page (Daily):**
+- **README.md** (this file) - Setup and overview
+- **TECHNICAL_DECISIONS.md** - Why each tech was chosen
 
-- Temperature (Mean, Max, Min)
-- Precipitation (Sum)
-- Wind Speed (Max)
+## 📧 Submission Email Template
 
-**Details Page (Hourly):**
+**Subject:** Weather Insights Dashboard - Assignment Submission
 
-- Temperature
-- Relative Humidity
-- Apparent Temperature
-- Precipitation
-- Sea Level Pressure
-- Wind Speed 10m
+Hi Team,
 
-## 🎨 Design Decisions
+Weather Insights Dashboard completed:
 
-### Responsive Design
+- **GitHub**: [YOUR_REPO_URL]
+- **Live Demo**: [YOUR_NETLIFY_URL]
 
-- Mobile-first approach with Tailwind breakpoints
-- Recharts ResponsiveContainer for adaptive chart sizing
-- Flexible grid layouts for tablet and desktop
+**Tech Stack**: React 18 + TypeScript, Zustand (state), React Query (data), Tailwind + shadcn/ui, Recharts
 
-### Performance Optimizations
+**Key Features**:
+- ✅ Overview + Details pages with interactive charts
+- ✅ 3 filters (date/location/parameters) with validation
+- ✅ API integration (Open-Meteo daily + hourly)
+- ✅ Responsive, accessible, error handling
+- ✅ Performance optimized (3KB initial bundle, caching)
 
-- React Query caching (5-minute stale time)
-- Memoized chart data transformations
-- Zustand selective subscriptions
-- Code splitting with lazy loading (future)
+**Code Organization**: Separation of concerns (UI → hooks → state → API), documented decisions in `TECHNICAL_DECISIONS.md`.
 
-### Error Handling
+Best regards,  
+[Your Name]
 
-- Error boundaries at app and component levels
-- User-friendly error messages with retry functionality
-- API interceptors for centralized error logging
-
-### Loading States
-
-- Skeleton loaders for charts
-- Spinner for page-level loading
-- Smooth transitions with Framer Motion
-
-## 🔧 Configuration
-
-### Date Range
-
-- Default: 19 days
-- Maximum: 90 days (3 months)
-
-### API Configuration
-
-- Base URL: `https://archive-api.open-meteo.com/v1`
-- Timeout: 10 seconds
-- Retry: 3 attempts with exponential backoff
-
-### Caching Strategy
-
-- Stale time: 5 minutes
-- Cache time: 10 minutes
-- Background refetch on reconnect
-
-## 📝 Development Notes
-
-### Why These Choices?
-
-**Zustand over Context API:**
-
-- No provider hell
-- Better performance (selective subscriptions)
-- Built-in DevTools integration
-
-**React Query over Manual Fetch:**
-
-- Automatic caching eliminates redundant API calls
-- Built-in retry and error handling
-- Optimistic updates support
-
-**Recharts over D3.js:**
-
-- Declarative API (more React-friendly)
-- Less learning curve
-- Sufficient for our use case
-
-**Tailwind + shadcn over Component Libraries:**
-
-- Full design control
-- Smaller bundle (tree-shaking)
-- Accessible out of the box
-
-## 🚀 Deployment
-
-This project is optimized for deployment on platforms like:
-
-- Netlify
-- Vercel
-- AWS Amplify
-
-Simply run `npm run build` and deploy the `dist` folder.
-
-## 📄 License
-
-MIT
+---
 
 ## 👨‍💻 Author
 
-Hemanth R
+**Hemanth R** - Built for Coulomb AI
