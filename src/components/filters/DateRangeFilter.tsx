@@ -17,6 +17,18 @@ export const DateRangeFilter = () => {
   const { dateRange, setDateRange } = useFilterStore();
   const [date, setDate] = useState<DateRange | undefined>();
   const [error, setError] = useState<string>('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Convert string dates to Date objects
   useEffect(() => {
@@ -96,7 +108,7 @@ export const DateRangeFilter = () => {
             defaultMonth={date?.from}
             selected={date}
             onSelect={handleSelect}
-            numberOfMonths={2}
+            numberOfMonths={isMobile ? 1 : 2}
             disabled={(calendarDate) => {
               // Disable future dates
               // if (calendarDate > new Date()) return true;
