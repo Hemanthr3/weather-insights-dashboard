@@ -69,19 +69,46 @@ queryKey: ['dailyWeather', { lat, lon, startDate, endDate }]
 
 ```
 src/
-├── pages/          → Route components (lazy loaded)
+├── pages/              → Thin wrappers (Overview, Details)
 ├── components/
-│   ├── charts/     → Temperature, Precipitation, Wind, MultiParameter
-│   ├── filters/    → Date, Location, Parameter
-│   ├── common/     → Loader, ErrorBoundary, Skeletons, ChartCard
-│   └── ui/         → shadcn/ui (Button, Card, Select, Calendar, etc.)
-├── hooks/          → useWeatherData (React Query)
-├── stores/         → useFilterStore (Zustand)
-├── services/       → weatherApi (Axios)
-├── utils/          → chartUtils, dateUtils (pure functions)
-├── types/          → TypeScript interfaces
-└── config/         → constants, api, queryClient
+│   ├── sections/       → Chart sections (OverviewCharts, DetailsCharts) - LAZY LOADED
+│   ├── layout/         → PageLayout (shared), Header, Sidebar, Profile
+│   ├── charts/         → Temperature, Precipitation, Wind, MultiParameter
+│   ├── filters/        → Date, Location, Parameter
+│   ├── common/         → Loader, ErrorBoundary, Skeletons, ChartCard
+│   └── ui/             → shadcn/ui (Button, Card, Select, Calendar, etc.)
+├── hooks/              → useWeatherData (React Query)
+├── stores/             → useFilterStore (Zustand)
+├── services/           → weatherApi (Axios)
+├── utils/              → chartUtils, dateUtils (pure functions)
+├── types/              → TypeScript interfaces
+└── config/             → constants, api, queryClient
 ```
+
+### Architecture Pattern
+
+**Shared Layout + Lazy Loaded Sections:**
+
+```
+App
+└── Routes
+    ├── Overview (thin wrapper)
+    │   └── PageLayout (shared)
+    │       └── Suspense
+    │           └── OverviewCharts (lazy - 1.56KB gzipped)
+    │
+    └── Details (thin wrapper)
+        └── PageLayout (shared)
+            ├── ParameterFilter (absolute positioned)
+            └── Suspense
+                └── DetailsCharts (lazy - 1.24KB gzipped)
+```
+
+**Why this architecture?**
+- ✅ **Filters stay visible** - No flash on navigation/refresh
+- ✅ **Lazy loading** - Heavy Recharts (56.56KB) loads on demand
+- ✅ **Shared layout** - No code duplication
+- ✅ **Small initial bundle** - 5.84KB gzipped
 
 ### Design Principle
 
@@ -91,10 +118,13 @@ UI (components) → Logic (hooks) → State (stores) → API (services)
 ```
 
 Each layer has a **single responsibility**:
-- Components: Render UI only
-- Hooks: Fetch & transform data
-- Stores: Manage global state
-- Services: API calls
+- **Pages**: Route wrappers (thin)
+- **Sections**: Chart logic (heavy, lazy loaded)
+- **Layout**: Shared UI structure
+- **Components**: Reusable UI pieces
+- **Hooks**: Fetch & transform data
+- **Stores**: Manage global state
+- **Services**: API calls
 
 ---
 
@@ -125,15 +155,30 @@ Each layer has a **single responsibility**:
 
 ## 🚀 Performance Optimizations
 
-### 1. **Code Splitting**
+### 1. **Lazy Loading (Chart Sections)**
 
-**Before:** 947KB bundle (298KB gzipped)  
-**After:** 3KB initial + lazy chunks (97% reduction!)
+**Architecture:** Shared layout + lazy loaded chart sections
 
 ```tsx
-// pages/Overview.tsx, pages/Details.tsx
-export default Overview;  // Lazy loaded in App.tsx
+// pages/Overview.tsx
+const OverviewCharts = lazy(() => import('@/components/sections/OverviewCharts'));
+
+return (
+  <PageLayout title="Overview">
+    <Suspense fallback={<Loader />}>
+      <OverviewCharts />  // Lazy loaded!
+    </Suspense>
+  </PageLayout>
+);
 ```
+
+**Result:**
+- Initial load: **5.84KB gzipped** (layout + filters visible immediately)
+- OverviewCharts: **1.56KB gzipped** (lazy loaded)
+- DetailsCharts: **1.24KB gzipped** (lazy loaded)
+- Recharts: **56.56KB gzipped** (auto-split, loads with charts)
+
+**UX Benefit:** Filters stay visible, no flash on navigation/refresh!
 
 ---
 
@@ -272,8 +317,11 @@ Wrapper for all charts (eliminates duplication)
 
 | File | Purpose |
 |------|---------|
-| **pages/Overview.tsx** | Daily charts + filters |
-| **pages/Details.tsx** | Hourly multi-parameter chart |
+| **pages/Overview.tsx** | Thin wrapper (9 lines) |
+| **pages/Details.tsx** | Thin wrapper (33 lines) |
+| **sections/OverviewCharts.tsx** | Daily charts logic (lazy loaded) |
+| **sections/DetailsCharts.tsx** | Hourly chart logic (lazy loaded) |
+| **layout/PageLayout.tsx** | Shared layout (title + filters) |
 | **hooks/useWeatherData.ts** | React Query hooks |
 | **stores/useFilterStore.ts** | Global filter state |
 | **services/weatherApi.ts** | API calls (Axios) |
