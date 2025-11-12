@@ -6,7 +6,7 @@ export const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <aside className=" w-[55px] bg-[#FFFFFF] border-r border-[#E9EFF5] px-2 py-4 h-full gap-4 flex flex-col items-center">
+    <aside className="hidden md:flex w-[55px] bg-[#FFFFFF] border-r border-[#E9EFF5] px-2 py-4 h-full gap-4 flex-col items-center">
       <Link
         to="/"
         className={cn(

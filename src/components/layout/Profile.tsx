@@ -5,7 +5,7 @@ export const Profile = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#FF9255] text-white font-semibold text-lg">
+      <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#FF9255] text-white font-semibold text-sm md:text-lg">
         {userInitial}
       </div>
     </div>

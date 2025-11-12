@@ -8,10 +8,18 @@ const DetailsCharts = lazy(() => import('@/components/sections/DetailsCharts'));
 
 const Details = () => {
   return (
-    <PageLayout title="Details">
+    <PageLayout
+      title="Details"
+      additionalFilters={
+        // Mobile: inline with other filters
+        <div className="md:hidden">
+          <ParameterFilter />
+        </div>
+      }
+    >
       <div className="relative">
-        {/* Parameter filter positioned absolutely */}
-        <div className="absolute top-6 right-12 z-10">
+        {/* Desktop: absolutely positioned */}
+        <div className="hidden md:block absolute top-6 right-12 z-10">
           <ParameterFilter />
         </div>
 

@@ -16,8 +16,8 @@ export const PageLayout = ({
   return (
     <div className="flex flex-col h-full w-full">
       {/* Fixed Header Section */}
-      <div className="flex-shrink-0 px-6 pt-6">
-        <h1 className="text-3xl font-bold mb-6">{title}</h1>
+      <div className="flex-shrink-0 px-3 pt-3 md:px-6 md:pt-6">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">{title}</h1>
 
         {/* Filters */}
         <div className="flex flex-col md:flex-row gap-2 mb-2">
@@ -28,8 +28,9 @@ export const PageLayout = ({
       </div>
 
       {/* Scrollable Content Section */}
-      <div className="flex-1 overflow-auto px-6 pb-6">{children}</div>
+      <div className="flex-1 overflow-auto px-3 pb-3 md:px-6 md:pb-6">
+        {children}
+      </div>
     </div>
   );
 };
-

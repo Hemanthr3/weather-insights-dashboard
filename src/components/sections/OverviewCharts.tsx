@@ -35,7 +35,7 @@ const OverviewCharts = () => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 md:gap-6">
         <TemperatureChartSkeleton />
         <PrecipitationChartSkeleton />
         <WindSpeedChartSkeleton />
@@ -52,7 +52,7 @@ const OverviewCharts = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 md:gap-6">
       <TemperatureChart
         data={chartData}
         onClick={() => handleChartClick('temperature')}
